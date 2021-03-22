@@ -1,0 +1,149 @@
+Mar 22 04:00:01 tape backup-vms[20032]: Start baremetal backup with guests: k7 dispatch
+Mar 22 04:00:06 tape backup-vms[20100]: VM: k7 is down
+Mar 22 04:00:06 tape backup-vms[20106]: VM:k7, rsyncing /var/lib/libvirt/images/hdd/k7-disk0.raw
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:00:06 [20107] building file list
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] >f..t...... k7-disk0.raw
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Number of files: 1 (reg: 1)
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Number of created files: 0
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Number of deleted files: 0
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Number of regular files transferred: 1
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Total file size: 24,696,061,952 bytes
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Total transferred file size: 24,696,061,952 bytes
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Literal data: 24,696,061,952 bytes
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Matched data: 0 bytes
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] File list size: 0
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] File list generation time: 0.001 seconds
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] File list transfer time: 0.000 seconds
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Total bytes sent: 24,702,091,356
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] Total bytes received: 35
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] sent 24,702,091,356 bytes  received 35 bytes  73,847,806.85 bytes/sec
+Mar 22 04:05:40 tape backup-vms[21876]: 2021/03/22 04:05:40 [20107] total size is 24,696,061,952  speedup is 1.00
+Mar 22 04:05:40 tape backup-vms[21878]: Done rsyncing /var/lib/libvirt/images/hdd/k7-disk0.raw
+
+Mar 22 04:05:40 tape backup-vms[21879]: VM:k7, rsyncing /var/lib/libvirt/images/ssd/k7-disk1.raw
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:05:40 [21880] building file list
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:27:10 [21880] >f..t...... k7-disk1.raw
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Number of files: 1 (reg: 1)
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Number of created files: 0
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Number of deleted files: 0
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Number of regular files transferred: 1
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Total file size: 214,748,364,800 bytes
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Total transferred file size: 214,748,364,800 bytes
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Literal data: 214,748,364,800 bytes
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Matched data: 0 bytes
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] File list size: 0
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] File list generation time: 0.001 seconds
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] File list transfer time: 0.000 seconds
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Total bytes sent: 214,800,793,692
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] Total bytes received: 35
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] sent 214,800,793,692 bytes  received 35 bytes  156,503,310.55 bytes/sec
+Mar 22 04:28:32 tape backup-vms[25999]: 2021/03/22 04:28:32 [21880] total size is 214,748,364,800  speedup is 1.00
+Mar 22 04:28:32 tape backup-vms[26001]: Done rsyncing /var/lib/libvirt/images/ssd/k7-disk1.raw
+Mar 22 04:28:32 tape backup-vms[26002]: VM: k7, all done
+
+Mar 22 04:28:37 tape backup-vms[26056]: VM: dispatch is down
+Mar 22 04:28:37 tape backup-vms[26062]: VM:dispatch, rsyncing /var/lib/libvirt/images/ssd/dispatch-disk0.raw
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:28:37 [26063] building file list
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:29 [26063] >f..t...... dispatch-disk0.raw
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Number of files: 1 (reg: 1)
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Number of created files: 0
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Number of deleted files: 0
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Number of regular files transferred: 1
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Total file size: 53,687,091,200 bytes
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Total transferred file size: 53,687,091,200 bytes
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Literal data: 53,687,091,200 bytes
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Matched data: 0 bytes
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] File list size: 0
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] File list generation time: 0.001 seconds
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] File list transfer time: 0.000 seconds
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Total bytes sent: 53,700,198,498
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] Total bytes received: 35
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] sent 53,700,198,498 bytes  received 35 bytes  212,674,053.60 bytes/sec
+Mar 22 04:32:49 tape backup-vms[27581]: 2021/03/22 04:32:49 [26063] total size is 53,687,091,200  speedup is 1.00
+Mar 22 04:32:49 tape backup-vms[27583]: Done rsyncing /var/lib/libvirt/images/ssd/dispatch-disk0.raw
+Mar 22 04:32:49 tape backup-vms[27584]: VM: dispatch, all done
+
+Mar 22 04:32:50 tape backup-vms[27620]: VM: restart guest dispatch ...
+Mar 22 04:32:51 tape backup-vms[27656]: VM: retart guest k7 ...
+
+Mar 22 04:32:51 tape backup-vms[27663]: VM: k7, rsyncing /mnt/archives/bkp_cache/k7-disk0.raw to remote host:xx.xx.xx.xxx:/srv/backups/vms_from_tape/
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:32:52 [27664] building file list
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:53:21 [27664] <f..t...... k7-disk0.raw
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Number of files: 2 (reg: 2)
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Number of created files: 0
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Number of deleted files: 0
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Number of regular files transferred: 1
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Total file size: 24,696,065,094 bytes
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Total transferred file size: 24,696,061,952 bytes
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Literal data: 2,676,883,456 bytes
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Matched data: 22,019,178,496 bytes
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] File list size: 0
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] File list generation time: 0.001 seconds
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] File list transfer time: 0.000 seconds
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Total bytes sent: 2,678,209,124
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] Total bytes received: 1,507,455
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] sent 2,678,209,124 bytes  received 1,507,455 bytes  2,027,784.02 bytes/sec
+Mar 22 04:54:52 tape backup-vms[336]: 2021/03/22 04:54:52 [27664] total size is 24,696,065,094  speedup is 9.22
+Mar 22 04:54:52 tape backup-vms[338]: Done rsyncing /mnt/archives/bkp_cache/k7-disk0.raw
+
+Mar 22 04:54:52 tape backup-vms[339]: VM: k7, rsyncing /mnt/archives/bkp_cache/k7-disk0.raw to remote host:xx.xx.xx.xxx:/srv/backups/
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 04:54:55 [340] building file list
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:10:48 [340] <f..t...... k7-disk0.raw
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Number of files: 2 (reg: 2)
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Number of created files: 0
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Number of deleted files: 0
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Number of regular files transferred: 1
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Total file size: 24,696,065,094 bytes
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Total transferred file size: 24,696,061,952 bytes
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Literal data: 2,676,883,456 bytes
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Matched data: 22,019,178,496 bytes
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] File list size: 0
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] File list generation time: 0.001 seconds
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] File list transfer time: 0.000 seconds
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Total bytes sent: 2,678,209,124
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] Total bytes received: 1,507,455
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] sent 2,678,209,124 bytes  received 1,507,455 bytes  563,498.39 bytes/sec
+Mar 22 06:14:07 tape backup-vms[16360]: 2021/03/22 06:14:07 [340] total size is 24,696,065,094  speedup is 9.22
+Mar 22 06:14:07 tape backup-vms[16362]: Done rsyncing /mnt/archives/bkp_cache/k7-disk0.raw
+
+Mar 22 06:14:07 tape backup-vms[16363]: VM: k7, rsyncing /mnt/archives/bkp_cache/k7-disk1.raw to remote host:xx.xx.xx.xxx:/srv/backups/vms_from_tape/
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 06:14:08 [16364] building file list
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:10:22 [16364] <f..t...... k7-disk1.raw
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Number of files: 2 (reg: 2)
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Number of created files: 0
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Number of deleted files: 0
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Number of regular files transferred: 1
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Total file size: 214,748,367,942 bytes
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Total transferred file size: 214,748,364,800 bytes
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Literal data: 622,460,928 bytes
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Matched data: 214,125,903,872 bytes
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] File list size: 0
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] File list generation time: 0.001 seconds
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] File list transfer time: 0.000 seconds
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Total bytes sent: 629,148,000
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] Total bytes received: 14,746,535
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] sent 629,148,000 bytes  received 14,746,535 bytes  85,448.15 bytes/sec
+Mar 22 08:19:42 tape backup-vms[28788]: 2021/03/22 08:19:42 [16364] total size is 214,748,367,942  speedup is 333.51
+Mar 22 08:19:42 tape backup-vms[28790]: Done rsyncing /mnt/archives/bkp_cache/k7-disk1.raw
+
+Mar 22 08:19:42 tape backup-vms[28791]: VM: k7, rsyncing /mnt/archives/bkp_cache/k7-disk1.raw to remote host:xx.xx.xx.xxx:/srv/backups/
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 08:19:43 [28792] building file list
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 13:08:49 [28792] <f..t...... k7-disk1.raw
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Number of files: 2 (reg: 2)
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Number of created files: 0
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Number of deleted files: 0
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Number of regular files transferred: 1
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Total file size: 214,748,367,942 bytes
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Total transferred file size: 214,748,364,800 bytes
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Literal data: 622,460,928 bytes
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Matched data: 214,125,903,872 bytes
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] File list size: 0
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] File list generation time: 0.001 seconds
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] File list transfer time: 0.000 seconds
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Total bytes sent: 629,148,000
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] Total bytes received: 14,746,535
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] sent 629,148,000 bytes  received 14,746,535 bytes  30,388.87 bytes/sec
+Mar 22 14:12:50 tape backup-vms[5663]: 2021/03/22 14:12:50 [28792] total size is 214,748,367,942  speedup is 333.51
+Mar 22 14:12:50 tape backup-vms[5665]: Done rsyncing /mnt/archives/bkp_cache/k7-disk1.raw
+Mar 22 14:12:50 tape backup-vms[5666]: VM: k7, all done
+Mar 22 14:12:50 tape backup-vms[5667]: End baremetal backup

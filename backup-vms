@@ -1,0 +1,207 @@
+#!/bin/bash
+
+PROGNAME=$(basename $0)
+LOGGER="logger -t ${PROGNAME}"
+
+# Hardcoded vars
+## Rsync VM disks just after caching process. This default behavior is an issue
+## when you have two hosts linked by dependancies. Issue is these hosts will be
+## shutdown too long...
+RSYNC_AFTER_CACHE=1
+
+# /etc/$PROGNAME.conf is needed.
+[ -r /etc/${PROGNAME}/${PROGNAME}.conf ] && . /etc/${PROGNAME}/${PROGNAME}.conf || exit 2
+
+usage () {
+    echo "Usage: $PROGNAME [-c] [-f <conf_file> ]" 2>&1
+    echo
+    echo '   -f <conf_file>     Specify configuration file.'
+    echo '   -c                 Rsync VM disks on local disk (called as cache.)'
+    exit 1
+}
+
+while getopts "f:c" OPTION
+do
+    case "$OPTION" in
+        f)
+            # Source file specified by "-f" option
+            [ -r ${OPTARG} ] && . ${OPTARG}
+        ;;
+        c)
+            USE_CACHE="yes"
+        ;;
+        *)
+            usage
+        ;;
+    esac
+done
+shift $(($OPTIND - 1))
+
+do_waiting_shutdown() {
+    local VM=$1
+    sleeping=0
+    while [ $sleeping -lt $KILL_VM_DELAY ]
+    do
+        if [ "$(virsh domstate $VM)" != "shut off" ]; then
+            sleep 5
+            sleeping=$(( $sleeping + 5))
+       else
+            sleeping=0
+            break
+       fi
+    done
+
+    #Destoying vm if not stopped after $KILL_VM_DELAY seconds
+    if [ "$sleeping" != "0" ]; then
+        echo " VM always running after $KILL_VM_DELAY s, Destroying it"
+        virsh -q destroy $VM
+    fi
+}
+
+do_mail_alert(){
+    echo "Rsync transfert was failed on $1 with rsync error $2 \
+          check your backup archive!" | mail -s "Message from $PROGNAME" root
+    ERROR=1
+}
+
+do_local_cache (){
+
+    local vm=$1
+    for disk in $(virsh dumpxml $vm |grep "source file" | awk -F "'" '{ print $2}')
+    do
+        if [ -e $disk ]; then
+            $LOGGER "VM:$vm, rsyncing $disk"
+            $RSYNC $disk $DIR_CACHE/
+            RET=$?
+            if [ "$RET" != 0 ]; then
+                do_mail_alert $disk $RET
+            else
+                # dump rsync log file to journald
+                $LOGGER -f /var/run/${PROGNAME}.log && rm -f /var/run/${PROGNAME}.log
+                $LOGGER "Done rsyncing $disk"
+            fi
+        fi
+    done
+
+    if [ -n "$ERROR" ]; then
+        $LOGGER "VM: $vm, something was wrong, check your mails"
+    else
+        $LOGGER "VM: $vm, all done"
+    fi
+
+}
+
+do_remote_sync_via_cache (){
+
+    local vm=$1
+    # limit bandwidth to 50MB/s
+    local RSYNC="$RSYNC --bwlimit=51200"
+    local disk_name="$(virsh dumpxml $vm |grep "source file" | awk -F "'" '{ print $2}' | awk -F "/" '{ print $NF }')"
+
+    for disk in $disk_name
+    do
+        disk_cached="${DIR_CACHE}/$disk"
+        if [ -f $disk_cached ]; then
+            for destination in $DST
+            do
+                $LOGGER "VM: $vm, rsyncing $disk_cached to remote host:$destination"
+                $RSYNC $disk_cached ${CONF_SRC}/${vm}.xml $destination
+                RET=$?
+                if [ "$RET" != 0 ]; then
+                    do_mail_alert $disk $RET
+                else
+                    $LOGGER -f /var/run/${PROGNAME}.log && rm -f /var/run/${PROGNAME}.log
+                    $LOGGER "Done rsyncing $disk_cached"
+                fi
+            done
+        else
+            $LOGGER "ERROR: $disk_cached not found"
+        fi
+    done
+
+    if [ -n "$ERROR" ]; then
+        $LOGGER "VM: $vm, something was wrong, check your mails"
+    else
+        $LOGGER "VM: $vm, all done"
+    fi
+}
+
+do_remote_sync (){
+
+    local vm=$1
+
+    for disk in $(virsh dumpxml $vm |grep "source file" |awk -F "'" '{ print $2}')
+    do
+        if [ -f $disk ]; then
+            for destination in $DST
+            do
+                $LOGGER "VM: $vm, rsyncing $disk to remote host: $destination"
+                $RSYNC $disk ${CONF_SRC}/${vm}.xml $destination
+                RET=$?
+                if [ "$RET" != 0 ]; then
+                    do_mail_alert $disk $RET
+                else
+                    $LOGGER -f /var/run/${PROGNAME}.log && rm -f /var/run/${PROGNAME}.log
+                    $LOGGER "Done rsyncing $disk"
+                fi
+            done
+        else
+            $LOGGER "ERROR: $disk not found"
+        fi
+    done
+
+    if [ -n "$ERROR" ]; then
+        $LOGGER "VM: $vm, something was wrong, check your mails"
+    else
+        $LOGGER "VM: $vm, all done"
+    fi
+}
+
+manage_dependancies () {
+
+    local vm=$1
+    ## By pass rsync_after_cache
+    if [ $vm = "jack" ]; then RSYNC_AFTER_CACHE=""; fi
+    if [ $vm = "k7" ]; then RSYNC_AFTER_CACHE=""; fi
+
+    ## Trigger start VM + rsync vm dependancies with cached disks
+    if [ $vm != "k7" ] && [ $vm != "jack" ];then
+        virsh -q start $vm && $LOGGER "VM: restart guest $vm ..."
+        if [ $vm = dispatch ]; then
+            virsh -q start k7 && $LOGGER "VM: retart guest k7 ..."
+            do_remote_sync_via_cache k7
+        fi
+        if [ $vm = sacd ]; then
+            virsh -q start jack && $LOGGER "VM: restart guest jack ..."
+            do_remote_sync_via_cache jack
+        fi
+    fi
+}
+
+# Main
+
+if [ -z "$VM" ]; then $LOGGER "ERROR: missing VM guest declaration"; exit 2; fi
+$LOGGER "Start baremetal backup with guests: $VM"
+touch /var/run/${PROGNAME}.statefile
+for vm in $(echo $VM)
+do
+
+    virsh -q shutdown $vm --mode=acpi
+    do_waiting_shutdown $vm
+    $LOGGER "VM: $vm is down"
+
+    if [ "X$USE_CACHE" = "Xyes" ]; then
+        if [ ! -d "$DIR_CACHE" ]; then $LOGGER "ERROR: missing cache directory"; exit 2; fi
+        do_local_cache $vm
+        manage_dependancies $vm
+        # bypass remote sync if RSYNC_AFTER_CACHE is not set
+        [ -z "$RSYNC_AFTER_CACHE" ] || do_remote_sync_via_cache $vm
+    else
+        do_remote_sync $vm
+        manage_dependancies $vm
+    fi
+done
+
+$LOGGER "End baremetal backup"
+[ -z "$LOG_FILE" ] || journalctl -t $PROGNAME >> $LOG_FILE
+rm -f /var/run/${PROGNAME}.statefile
