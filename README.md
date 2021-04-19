@@ -17,6 +17,7 @@ This tool is based on **Rsync**.
 - just manage VM backups you need (declared in conffile)
 - log and notify admins on errors (by mail)
 - thinked KISS (no LVM snapshot or other complicated solution), just rsync.
+- make your moniting backups easier (monitor the state file !)
 
 ## How to deal with
 
@@ -65,7 +66,7 @@ To see: `journalctl -t backup-vms`
 
 ## Ideas
 
-1. Secure backuped files on remotes 
+1. Secure backuped files on remotes
 
 
 ## License
