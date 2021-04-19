@@ -60,7 +60,8 @@ do_waiting_shutdown() {
 
 do_mail_alert(){
     echo "Rsync transfert was failed on $1 with rsync error $2 \
-          check your backup archive!" | mail -s "Message from $PROGNAME" root
+    (@ $3) check your backup archive!"                         \
+	  | mail -s "Message from $PROGNAME" root
     ERROR=1
 }
 
@@ -74,7 +75,7 @@ do_local_cache (){
             $RSYNC $disk $DIR_CACHE/
             RET=$?
             if [ "$RET" != 0 ]; then
-                do_mail_alert $disk $RET
+                do_mail_alert $disk $RET local_cache
             else
                 # dump rsync log file to journald
                 $LOGGER -f /var/run/${PROGNAME}.log && rm -f /var/run/${PROGNAME}.log
@@ -108,7 +109,7 @@ do_remote_sync_via_cache (){
                 $RSYNC $disk_cached ${CONF_SRC}/${vm}.xml $destination
                 RET=$?
                 if [ "$RET" != 0 ]; then
-                    do_mail_alert $disk $RET
+                    do_mail_alert $disk $RET $destination
                 else
                     $LOGGER -f /var/run/${PROGNAME}.log && rm -f /var/run/${PROGNAME}.log
                     $LOGGER "Done rsyncing $disk_cached"
@@ -139,7 +140,7 @@ do_remote_sync (){
                 $RSYNC $disk ${CONF_SRC}/${vm}.xml $destination
                 RET=$?
                 if [ "$RET" != 0 ]; then
-                    do_mail_alert $disk $RET
+                    do_mail_alert $disk $RET $destination
                 else
                     $LOGGER -f /var/run/${PROGNAME}.log && rm -f /var/run/${PROGNAME}.log
                     $LOGGER "Done rsyncing $disk"
