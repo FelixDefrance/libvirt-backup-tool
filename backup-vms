@@ -60,7 +60,7 @@ do_waiting_shutdown() {
 
 do_mail_alert(){
     echo "Rsync transfert was failed on $1 with rsync error $2 \
-    (@ $3) check your backup archive!"                         \
+          (@ $3) check your backup archive!" \
 	  | mail -s "Message from $PROGNAME" root
     ERROR=1
 }
@@ -84,7 +84,7 @@ do_local_cache (){
         fi
     done
 
-    if [ -n "$ERROR" ]; then
+    if [ "$ERROR" = 1 ]; then
         $LOGGER "VM: $vm, something was wrong, check your mails"
         touch /var/run/${PROGNAME}.statefile
     else
@@ -121,7 +121,7 @@ do_remote_sync_via_cache (){
         fi
     done
 
-    if [ -n "$ERROR" ]; then
+    if [ "$ERROR" = 1 ]; then
         $LOGGER "VM: $vm, something was wrong, check your mails"
         touch /var/run/${PROGNAME}.statefile
     else
@@ -153,7 +153,7 @@ do_remote_sync (){
         fi
     done
 
-    if [ -n "$ERROR" ]; then
+    if [ "$ERROR" = 1 ]; then
         $LOGGER "VM: $vm, something was wrong, check your mails"
         touch /var/run/${PROGNAME}.statefile
     else
