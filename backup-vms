@@ -70,6 +70,11 @@ do_local_cache (){
     # Make a cache of VM image files
 
     local vm=$1
+
+    virsh -q shutdown $vm --mode=acpi
+    do_waiting_shutdown $vm
+    $LOGGER "VM: $vm is down"
+
     for disk in $(virsh dumpxml $vm |grep "source file" | awk -F "'" '{ print $2}')
     do
         if [ -e $disk ]; then
@@ -137,6 +142,10 @@ do_remote_sync (){
 
     local vm=$1
 
+    virsh -q shutdown $vm --mode=acpi
+    do_waiting_shutdown $vm
+    $LOGGER "VM: $vm is down"
+
     for disk in $(virsh dumpxml $vm |grep "source file" |awk -F "'" '{ print $2}')
     do
         if [ -f $disk ]; then
@@ -194,11 +203,6 @@ if [ -z "$VM" ]; then $LOGGER "ERROR: missing VM guest declaration"; exit 2; fi
 $LOGGER "Start baremetal backup with guests: $VM"
 for vm in $(echo $VM)
 do
-
-    virsh -q shutdown $vm --mode=acpi
-    do_waiting_shutdown $vm
-    $LOGGER "VM: $vm is down"
-
     if [ "X$USE_CACHE" = "Xyes" ]; then
         if [ ! -d "$DIR_CACHE" ]; then $LOGGER "ERROR: missing cache directory"; exit 2; fi
         do_local_cache $vm
