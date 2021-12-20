@@ -61,8 +61,8 @@ do_waiting_shutdown() {
 
 do_mail_alert(){
     echo "Rsync transfert was failed on $1 with rsync error $2 \
-          (@ $3) check your backup archive!" \
-	  | mail -s "Message from $PROGNAME" root
+          (@ $3) check your backup archive!"                   \
+	        | mail -s "Message from $PROGNAME" root
     ERROR=1
 }
 
@@ -73,7 +73,7 @@ do_local_cache (){
     for disk in $(virsh dumpxml $vm |grep "source file" | awk -F "'" '{ print $2}')
     do
         if [ -e $disk ]; then
-            $LOGGER "VM:$vm, rsyncing $disk"
+            $LOGGER "VM: $vm, rsyncing $disk"
             $RSYNC $disk $DIR_CACHE/
             RET=$?
             if [ "$RET" != 0 ]; then
@@ -176,12 +176,14 @@ manage_dependancies () {
     if [ $vm != "k7" ] && [ $vm != "jack" ];then
         virsh -q start $vm && $LOGGER "VM: restart guest $vm ..."
         if [ $vm = dispatch ]; then
-            virsh -q start k7 && $LOGGER "VM: retart guest k7 ..."
+            virsh -q start k7 && $LOGGER "VM: restart guest k7 ..."
             do_remote_sync_via_cache k7
+            do_remote_sync_via_cache dispatch
         fi
         if [ $vm = sacd ]; then
             virsh -q start jack && $LOGGER "VM: restart guest jack ..."
             do_remote_sync_via_cache jack
+            do_remote_sync_via_cache sacd
         fi
     fi
 }
