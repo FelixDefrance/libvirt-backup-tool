@@ -67,6 +67,7 @@ do_mail_alert(){
 }
 
 do_local_cache (){
+    # Make a cache of VM image files
 
     local vm=$1
     for disk in $(virsh dumpxml $vm |grep "source file" | awk -F "'" '{ print $2}')
@@ -95,6 +96,7 @@ do_local_cache (){
 }
 
 do_remote_sync_via_cache (){
+    # Sync VM image files on remote host
 
     local vm=$1
     # limit bandwidth to 50MB/s
@@ -131,6 +133,7 @@ do_remote_sync_via_cache (){
 }
 
 do_remote_sync (){
+    # Sync VM image files on remote host
 
     local vm=$1
 
