@@ -38,11 +38,12 @@ done
 shift $(($OPTIND - 1))
 
 do_waiting_shutdown() {
-    local VM=$1
+
+    local vm=$1
     sleeping=0
     while [ $sleeping -lt $KILL_VM_DELAY ]
     do
-        if [ "$(virsh domstate $VM)" != "shut off" ]; then
+        if [ "$(virsh domstate $vm)" != "shut off" ]; then
             sleep 5
             sleeping=$(( $sleeping + 5))
        else
@@ -54,7 +55,7 @@ do_waiting_shutdown() {
     #Destoying vm if not stopped after $KILL_VM_DELAY seconds
     if [ "$sleeping" != "0" ]; then
         echo " VM always running after $KILL_VM_DELAY s, Destroying it"
-        virsh -q destroy $VM
+        virsh -q destroy $vm
     fi
 }
 
